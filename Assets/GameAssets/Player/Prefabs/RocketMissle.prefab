@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1953649341888771955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 921748439860136295}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &921748439860136295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953649341888771955}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.438, y: -0.308, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7510713439008293015}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2139643058864613148
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,6 +65,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 417998271126188089}
+  - {fileID: 921748439860136295}
   m_Father: {fileID: 2595054971958058446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6676536493932066718
@@ -163,6 +195,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider2D: {fileID: 7127934152494589404}
+  _bull: {fileID: 693891002721955913}
+  _bullPosition: {fileID: 921748439860136295}
+  _spriteRenderer: {fileID: 6676536493932066718}
 --- !u!1 &2684074633155083681
 GameObject:
   m_ObjectHideFlags: 0

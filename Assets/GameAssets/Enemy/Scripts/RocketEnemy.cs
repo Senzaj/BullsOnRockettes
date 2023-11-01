@@ -13,8 +13,8 @@ namespace GameAssets.Enemy.Scripts
         [SerializeField] private Transform _bearPosition;
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
-        private const float MaxSpeed = 1.6f;
-        private const float MinSpeed = 1.2f;
+        private const float MaxSpeed = 1.4f;
+        private const float MinSpeed = 1.3f;
         private const float MaxWaitingTime = 4.5f;
         private const float MinWaitingTime = 0;
 
@@ -23,6 +23,7 @@ namespace GameAssets.Enemy.Scripts
 
         private void OnEnable()
         {
+            _rigidbody2D.gravityScale = 0;
             _spriteRenderer.enabled = true;
             _bear.MakeKinematic();
             _bear.transform.position = _bearPosition.position;
@@ -38,6 +39,10 @@ namespace GameAssets.Enemy.Scripts
         {
             //
             
+            if (_flyingToTarget != null)
+                StopCoroutine(_flyingToTarget);
+            
+            _rigidbody2D.gravityScale = 1;
             _spriteRenderer.enabled = false;
             _bear.makeDynamic();
         }

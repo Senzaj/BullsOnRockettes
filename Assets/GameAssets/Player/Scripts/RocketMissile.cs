@@ -102,6 +102,7 @@ namespace GameAssets.Player.Scripts
             transform.position = _shootPointRigidbody2D.position;
             _missileRigidbody2D.isKinematic = false;
             _springJoint2D.connectedBody = _shootPointRigidbody2D;
+            _springJoint2D.enabled = true;
             _isReady = true;
             _collider2D.enabled = true;
         }
@@ -112,7 +113,7 @@ namespace GameAssets.Player.Scripts
             _instance.EnableCollider();
             yield return new WaitForSeconds(0.1f);
 
-            gameObject.GetComponent<SpringJoint2D>().enabled = false;
+            _springJoint2D.enabled = false;
             Launched?.Invoke();
             enabled = false;
 

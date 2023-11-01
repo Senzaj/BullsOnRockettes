@@ -1,11 +1,10 @@
-using System;
-using System.Collections;
-using GameAssets.Common.Scripts;
-using GameAssets.Enemy.Scripts;
-using GameAssets.Player.Scripts;
-using TMPro;
-using UnityEngine;
 using Random = UnityEngine.Random;
+using GameAssets.Common.Scripts;
+using GameAssets.Player.Scripts;
+using GameAssets.Enemy.Scripts;
+using System.Collections;
+using UnityEngine;
+using TMPro;
 
 namespace GameAssets.Main.Scripts
 {
@@ -28,10 +27,23 @@ namespace GameAssets.Main.Scripts
         {
             _enemyPool.InstantiateStartCount();
             _ammoPool.InstantiateStartCount();
+
+            _playerManager.EnemyCollided += IncreaseScore;
+            _playerManager.PeacefulCollided += Defeat;
             
             StartLocating();
         }
 
+        private void IncreaseScore()
+        {
+            //show and set
+        }
+
+        private void Defeat()
+        {
+            //show and set
+        }
+        
         private void StartLocating()
         {
             if (_coroutines != null)

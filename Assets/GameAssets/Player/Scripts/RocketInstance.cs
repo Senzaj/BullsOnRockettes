@@ -13,7 +13,8 @@ namespace GameAssets.Player.Scripts
         [SerializeField] private SpriteRenderer _spriteRenderer;
         
         public event Action<RocketInstance> EnemyCollided;
-        public event Action<RocketInstance> AmmoCollided;
+        public event Action AmmoCollided;
+        public event Action<RocketInstance> Skipped;
 
         private bool _isCollidedEnemy;
 
@@ -23,6 +24,11 @@ namespace GameAssets.Player.Scripts
             _bull.transform.position = _bullPosition.position;
             _isCollidedEnemy = false;
             _spriteRenderer.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            Skipped?.Invoke(this);
         }
 
         public void DisableCollider()
@@ -41,7 +47,7 @@ namespace GameAssets.Player.Scripts
             {
                 //
                 ammo.gameObject.SetActive(false);
-                AmmoCollided?.Invoke(this);
+                AmmoCollided?.Invoke();
             }
 
             if (other.TryGetComponent(out RocketEnemy enemy))

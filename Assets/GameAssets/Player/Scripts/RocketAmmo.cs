@@ -14,5 +14,10 @@ namespace GameAssets.Player.Scripts
             _rigidbody2D.velocity = dir * Random.Range(MinSpeed, MaxSpeed);
             transform.up = _rigidbody2D.velocity;
         }
+
+        public void OnCollided()
+        {
+            //
+        }
     }
 }
