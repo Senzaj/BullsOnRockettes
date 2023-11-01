@@ -1,9 +1,7 @@
 {
-    "name": "Enemy",
+    "name": "Common",
     "rootNamespace": "",
-    "references": [
-        "GUID:c5300b9dda1d7a8488b5ea591da567ab"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

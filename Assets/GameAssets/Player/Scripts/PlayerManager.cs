@@ -1,18 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
+using GameAssets.Common.Scripts;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+namespace GameAssets.Player.Scripts
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerManager : MonoBehaviour
     {
+        [SerializeField] private ObjectPool _playerRocketsPool;
+        [SerializeField] private Rigidbody2D _shootPointRigidbody2D;
+        [SerializeField] private Vector2 _startPos;
         
-    }
+        private const int _startCount = 5;
+        
+        private RocketMissile _currentMissile;
+        private int _count;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void OnEnable()
+        {
+            _playerRocketsPool.InstantiateStartCount();
+            _count = _startCount;
+            
+            TryPrepareNextMissile();
+            //unsub
+        }
+
+        private void TryPrepareNextMissile()
+        {
+            if (_currentMissile != null)
+                _currentMissile.Launched -= TryPrepareNextMissile;
+            
+            if (_count > 0)
+            {
+                RocketMissile newMissile = _playerRocketsPool.Get().GetComponent<RocketMissile>();
+                _currentMissile = newMissile;
+                newMissile.gameObject.SetActive(true);
+                newMissile.enabled = true;
+                newMissile.SetShootPoint(_shootPointRigidbody2D, _startPos);
+                newMissile.Launched += TryPrepareNextMissile;
+                _count--;
+            }
+        }
     }
 }
