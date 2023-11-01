@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundsSlider : MonoBehaviour
+namespace GameAssets.Gui.Scripts.Slider
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SoundsSlider : MonoBehaviour
     {
-        
-    }
+        private UnityEngine.UI.Slider _slider;
+        private const string Volume = nameof(Volume);
 
-    // Update is called once per frame
-    void Update()
-    {
+        private void OnEnable()
+        {
+            _slider = GetComponent<UnityEngine.UI.Slider>();
+
+            if (PlayerPrefs.HasKey(Volume))
+                SetSavedVolume();
+            else
+                SetUnsavedVolume();
+        }
+
+        private void SetSavedVolume()
+        {
+            AudioListener.volume = PlayerPrefs.GetFloat(Volume);
+            _slider.value = PlayerPrefs.GetFloat(Volume);
+        }
+
+        private void SetUnsavedVolume()
+        {
+            AudioListener.volume = 1;
+            _slider.value = 1;
+        }
         
+        private void ChangeVolume(float newValue)
+        {
+            AudioListener.volume = newValue;
+            PlayerPrefs.SetFloat(Volume, newValue);
+        }
     }
 }

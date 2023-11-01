@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class StageLoader : MonoBehaviour
+namespace GameAssets.Gui.Scripts.ForButtons
 {
-    // Start is called before the first frame update
-    void Start()
+    public class StageLoader : MonoBehaviour
     {
-        
-    }
+        private void LoadStartStage()
+        {
+            SceneManager.LoadScene("StartStage");
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void LoadGameStage()
+        {
+            SceneManager.LoadScene("GameStage");
+        }
     }
 }

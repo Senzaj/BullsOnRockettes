@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AppCloser : MonoBehaviour
+namespace GameAssets.Gui.Scripts.ForButtons
 {
-    // Start is called before the first frame update
-    void Start()
+    public class AppCloser : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void CloseApp()
+        {
+            Application.Quit();
+        }
     }
 }
