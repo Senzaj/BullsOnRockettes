@@ -1,3 +1,4 @@
+using System;
 using GameAssets.Common.Scripts;
 using UnityEngine;
 
@@ -8,7 +9,10 @@ namespace GameAssets.Player.Scripts
         [SerializeField] private ObjectPool _playerRocketsPool;
         [SerializeField] private Rigidbody2D _shootPointRigidbody2D;
         [SerializeField] private Vector2 _startPos;
-        
+
+        public event Action PeacefulCollided;
+        public event Action EnemyCollided;
+
         private const int _startCount = 5;
         
         private RocketMissile _currentMissile;

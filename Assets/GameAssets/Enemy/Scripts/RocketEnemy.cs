@@ -1,19 +1,32 @@
+using System;
 using System.Collections;
+using GameAssets.Common.Scripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameAssets.Enemy.Scripts
 {
     public class RocketEnemy : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
+        [SerializeField] private Body _bear;
+        [SerializeField] private Transform _bearPosition;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
 
-        private const float MaxSpeed = 2.1f;
-        private const float MinSpeed = 0.6f;
+        private const float MaxSpeed = 1.6f;
+        private const float MinSpeed = 1.2f;
         private const float MaxWaitingTime = 4.5f;
         private const float MinWaitingTime = 0;
 
         private float _constSpeed;
         private Coroutine _flyingToTarget;
+
+        private void OnEnable()
+        {
+            _spriteRenderer.enabled = true;
+            _bear.MakeKinematic();
+            _bear.transform.position = _bearPosition.position;
+        }
 
         private void OnDisable()
         {
@@ -21,6 +34,14 @@ namespace GameAssets.Enemy.Scripts
                 StopCoroutine(_flyingToTarget);
         }
 
+        public void OnCollided()
+        {
+            //
+            
+            _spriteRenderer.enabled = false;
+            _bear.makeDynamic();
+        }
+        
         public void StartFlyTo(Vector2 startDir, Vector2 endPoint)
         {
             _constSpeed = Random.Range(MinSpeed, MaxSpeed);
@@ -37,7 +58,7 @@ namespace GameAssets.Enemy.Scripts
             if (_flyingToTarget != null)
                 StopCoroutine(_flyingToTarget);
 
-            _flyingToTarget = StartCoroutine(Flying(endPoint.normalized));
+            _flyingToTarget = StartCoroutine(Flying(endPoint));
         }
 
         private IEnumerator Flying(Vector2 target)

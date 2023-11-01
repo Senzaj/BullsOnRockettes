@@ -6,6 +6,11 @@ namespace GameAssets.Common.Scripts
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
+        public void MakeKinematic()
+        {
+            _rigidbody2D.isKinematic = true;
+        }
+        
         public void makeDynamic()
         {
             _rigidbody2D.isKinematic = false;

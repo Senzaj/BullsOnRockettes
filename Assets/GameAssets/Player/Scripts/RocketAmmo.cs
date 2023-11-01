@@ -6,8 +6,8 @@ namespace GameAssets.Player.Scripts
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
-        private const float MaxSpeed = 3.2f;
-        private const float MinSpeed = 1.2f;
+        private const float MaxSpeed = 2f;
+        private const float MinSpeed = 1.7f;
 
         public void StartFlyTo(Vector2 dir)
         {
