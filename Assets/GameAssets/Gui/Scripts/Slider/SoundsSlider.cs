@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GameAssets.Gui.Scripts.Slider
@@ -29,7 +30,7 @@ namespace GameAssets.Gui.Scripts.Slider
             _slider.value = 1;
         }
         
-        private void ChangeVolume(float newValue)
+        public void ChangeVolume(Single newValue)
         {
             AudioListener.volume = newValue;
             PlayerPrefs.SetFloat(Volume, newValue);

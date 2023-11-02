@@ -3,6 +3,8 @@ using GameAssets.Common.Scripts;
 using GameAssets.Player.Scripts;
 using GameAssets.Enemy.Scripts;
 using System.Collections;
+using GameAssets.Gui.Scripts.Teaching;
+using GameAssets.Gui.Scripts.Window;
 using UnityEngine;
 using TMPro;
 
@@ -17,31 +19,76 @@ namespace GameAssets.Main.Scripts
         [SerializeField] private PeacefulInstance _leftTarget;
         [SerializeField] private PeacefulInstance _rightTarget;
         [SerializeField] private PlayerManager _playerManager;
+        [SerializeField] private Teaching _teaching;
 
         [SerializeField] private TMP_Text[] _currentScoreTMP;
         [SerializeField] private TMP_Text _maxScoreTMP;
+        [SerializeField] private Window _gameWindow;
+        [SerializeField] private Window _defeatWindow;
 
+        private const string Teaching = nameof(Teaching);
+        private const string MaxScore = nameof(MaxScore);
+        private static readonly WaitForSeconds Wait = new WaitForSeconds(1f);
+
+        private bool _isDefeat;
+        private int _currentScore;
         private Coroutine[] _coroutines;
         
         private void OnEnable()
         {
+            _currentScore = 0;
+            _isDefeat = false;
+            _teaching.SetStatus();
             _enemyPool.InstantiateStartCount();
             _ammoPool.InstantiateStartCount();
 
             _playerManager.EnemyCollided += IncreaseScore;
             _playerManager.PeacefulCollided += Defeat;
-            
-            StartLocating();
+
+            if (_teaching.GetStatus())
+            {
+                StartLocating();
+            }
+            else
+            {
+                _teaching.ChangedStatus += TeachingFinished;
+                _teaching.Teach();
+            }
+
         }
 
         private void IncreaseScore()
         {
-            //show and set
+            _currentScore++;
+
+            foreach (TMP_Text tmp in _currentScoreTMP)
+                tmp.text = _currentScore.ToString();
         }
 
         private void Defeat()
         {
-            //show and set
+            if (_isDefeat == false)
+            {
+                _isDefeat = !_isDefeat;
+                _gameWindow.Quit();
+
+                int maxScore = PlayerPrefs.HasKey(MaxScore) ? PlayerPrefs.GetInt(MaxScore) : 0;
+
+                if (_currentScore > maxScore)
+                {
+                    maxScore = _currentScore;
+                    PlayerPrefs.SetInt(MaxScore, maxScore);
+                }
+
+                _maxScoreTMP.text = maxScore.ToString();
+                StartCoroutine(OnDefeat());
+            }
+        }
+
+        private IEnumerator OnDefeat()
+        {
+            yield return Wait;
+            _defeatWindow.Enter();
         }
         
         private void StartLocating()
@@ -64,7 +111,7 @@ namespace GameAssets.Main.Scripts
         {
             while (gameObject.activeSelf)
             {
-                float randomNumber = Random.Range(1.2f, 3f);
+                float randomNumber = Random.Range(1.5f, 3f);
                 int sideIndex = Random.Range(0, 2);
                 RocketAmmo ammo = _ammoPool.Get().GetComponent<RocketAmmo>();
                 Vector2 rightPos = _ammoRightPositions[Random.Range(0, _ammoRightPositions.Length)];
@@ -90,7 +137,7 @@ namespace GameAssets.Main.Scripts
         {
             while (gameObject.activeSelf)
             {
-                float randomNumber = Random.Range(1.2f, 3f);
+                float randomNumber = Random.Range(1.5f, 4f);
                 int sideIndex = Random.Range(0, 2);
                 RocketEnemy enemy = _enemyPool.Get().GetComponent<RocketEnemy>();
                 Vector2 rightPos = _enemyRightPositions[Random.Range(0, _enemyRightPositions.Length)];
@@ -110,6 +157,12 @@ namespace GameAssets.Main.Scripts
                     enemy.StartFlyTo(Vector2.left, _rightTarget.transform.position);
                 }
             }
+        }
+        
+        private void TeachingFinished()
+        {
+            StartLocating();
+            _teaching.ChangedStatus -= TeachingFinished;
         }
     }
 }

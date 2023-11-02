@@ -5,6 +5,7 @@ namespace GameAssets.Player.Scripts
     public class RocketAmmo : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
+        [SerializeField] private ParticleSystem _ammoCollected;
 
         private const float MaxSpeed = 2f;
         private const float MinSpeed = 1.7f;
@@ -17,7 +18,7 @@ namespace GameAssets.Player.Scripts
 
         public void OnCollided()
         {
-            //
+            Instantiate(_ammoCollected, transform.position, Quaternion.identity);
         }
     }
 }

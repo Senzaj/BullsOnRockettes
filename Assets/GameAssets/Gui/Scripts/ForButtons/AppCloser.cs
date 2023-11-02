@@ -4,7 +4,7 @@ namespace GameAssets.Gui.Scripts.ForButtons
 {
     public class AppCloser : MonoBehaviour
     {
-        private void CloseApp()
+        public void CloseApp()
         {
             Application.Quit();
         }

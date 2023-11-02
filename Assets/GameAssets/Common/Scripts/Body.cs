@@ -14,6 +14,7 @@ namespace GameAssets.Common.Scripts
         public void makeDynamic()
         {
             _rigidbody2D.isKinematic = false;
+            _rigidbody2D.velocity = Vector2.down * 1.5f;
         }
     }
 }

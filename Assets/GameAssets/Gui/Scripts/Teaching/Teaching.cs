@@ -40,7 +40,7 @@ namespace GameAssets.Gui.Scripts.Teaching
             Continue();
         }
 
-        private void Continue()
+        public void Continue()
         {
             if (_index < _windows.Length)
                 Next();
@@ -56,7 +56,7 @@ namespace GameAssets.Gui.Scripts.Teaching
             _windows[_index++].Enter();
         }
         
-        private void Finish()
+        public void Finish()
         {
             _isFinished = true;
             EnableGameWindow();

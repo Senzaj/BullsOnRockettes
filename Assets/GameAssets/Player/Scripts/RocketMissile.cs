@@ -30,6 +30,16 @@ namespace GameAssets.Player.Scripts
             _shootPointRigidbody2D = shootPointRigidbody2D;
             StartCoroutine(MoveToShootPoint());
         }
+
+        public void IsntReady()
+        {
+            _isReady = false;
+        }
+        
+        public void Ready()
+        {
+            _isReady = true;
+        }
         
         private void OnEnable()
         {

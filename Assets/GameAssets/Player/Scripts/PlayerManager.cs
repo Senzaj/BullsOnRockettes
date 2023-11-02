@@ -1,5 +1,6 @@
 using System;
 using GameAssets.Common.Scripts;
+using TMPro;
 using UnityEngine;
 
 namespace GameAssets.Player.Scripts
@@ -11,6 +12,8 @@ namespace GameAssets.Player.Scripts
         [SerializeField] private Vector2 _startPos;
         [SerializeField] private PeacefulInstance[] _peacefulInstances;
 
+        [SerializeField] private TMP_Text _rocketsTMP;
+        
         public event Action PeacefulCollided;
         public event Action EnemyCollided;
 
@@ -22,7 +25,8 @@ namespace GameAssets.Player.Scripts
         private void OnEnable()
         {
             _playerRocketsPool.InstantiateStartCount();
-            _count = _startCount; //show
+            _count = _startCount;
+            _rocketsTMP.text = _count.ToString();
 
             TryPrepareNextMissile();
 
@@ -34,6 +38,18 @@ namespace GameAssets.Player.Scripts
         {
             foreach (PeacefulInstance peaceful in _peacefulInstances)
                 peaceful.EnemyCollided -= OnEnemyCollidedPeaceful;
+        }
+
+        public void CurrentMissileIsntReady()
+        {
+            if (_currentMissile != null)
+                _currentMissile.IsntReady();
+        }
+
+        public void CurrentMissileReady()
+        {
+            if (_currentMissile != null)
+                _currentMissile.Ready();
         }
 
         private void OnEnemyCollidedPeaceful()
@@ -49,7 +65,11 @@ namespace GameAssets.Player.Scripts
 
         private void OnAmmoCollidedRocket()
         {
-            _count +=2; //show
+            _count +=2;
+            _rocketsTMP.text = _count.ToString();
+            
+            if (_currentMissile == null)
+                TryPrepareNextMissile();
         }
 
         private void SkipRocket(RocketInstance instance)
@@ -58,12 +78,20 @@ namespace GameAssets.Player.Scripts
             instance.AmmoCollided -= OnAmmoCollidedRocket;
             instance.Skipped -= SkipRocket;
         }
+
+        private void OnLaunched()
+        {
+            if (_currentMissile != null)
+            {
+                _currentMissile.Launched -= OnLaunched;
+                _currentMissile = null;
+            }
+            
+            TryPrepareNextMissile();
+        }
         
         private void TryPrepareNextMissile()
         {
-            if (_currentMissile != null)
-                _currentMissile.Launched -= TryPrepareNextMissile;
-            
             if (_count > 0)
             {
                 RocketMissile newMissile = _playerRocketsPool.Get().GetComponent<RocketMissile>();
@@ -71,11 +99,12 @@ namespace GameAssets.Player.Scripts
                 newMissile.gameObject.SetActive(true);
                 newMissile.enabled = true;
                 newMissile.SetShootPoint(_shootPointRigidbody2D, _startPos);
-                newMissile.Launched += TryPrepareNextMissile;
+                newMissile.Launched += OnLaunched;
                 newMissile.Instance.EnemyCollided += OnEnemyCollidedRocket;
                 newMissile.Instance.AmmoCollided += OnAmmoCollidedRocket;
                 newMissile.Instance.Skipped += SkipRocket;
                 _count--;
+                _rocketsTMP.text = _count.ToString();
             }
         }
     }

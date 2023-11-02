@@ -12,18 +12,23 @@ namespace GameAssets.Enemy.Scripts
         [SerializeField] private Body _bear;
         [SerializeField] private Transform _bearPosition;
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private ParticleSystem _work;
+        [SerializeField] private ParticleSystem _explosion;
 
         private const float MaxSpeed = 1.4f;
         private const float MinSpeed = 1.3f;
         private const float MaxWaitingTime = 4.5f;
         private const float MinWaitingTime = 0;
 
+        public bool IsDowned { get; private set; }
         private float _constSpeed;
         private Coroutine _flyingToTarget;
 
         private void OnEnable()
         {
+            IsDowned = false;
             _rigidbody2D.gravityScale = 0;
+            _work.Play();
             _spriteRenderer.enabled = true;
             _bear.MakeKinematic();
             _bear.transform.position = _bearPosition.position;
@@ -37,7 +42,9 @@ namespace GameAssets.Enemy.Scripts
 
         public void OnCollided()
         {
-            //
+            IsDowned = true;
+            _work.Stop();
+            Instantiate(_explosion, transform.position, Quaternion.identity);
             
             if (_flyingToTarget != null)
                 StopCoroutine(_flyingToTarget);
