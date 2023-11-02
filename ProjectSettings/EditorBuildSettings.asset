@@ -11,4 +11,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Stages/GameStage.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Stages/AnimsScene.unity
+    guid: 98b1382ab21710e478473b174c4d71d1
+  - enabled: 1
+    path: Assets/Stages/CreatedStage.unity
+    guid: 21572f6d52479614ca5f02dccaa72a7a
+  - enabled: 1
+    path: Assets/Stages/Bears.unity
+    guid: e3767cd49ce3c324cbe54553bc51d56f
+  - enabled: 1
+    path: Assets/Stages/New Scene.unity
+    guid: 115b4177757c11b498660249fccaabde
+  - enabled: 1
+    path: Assets/Stages/NewStage.unity
+    guid: 4b1e401029a05de4897e726462f33f2d
+  - enabled: 1
+    path: Assets/Stages/Stage.unity
+    guid: 748ca88d88c91804180a58266657b458
+  - enabled: 1
+    path: Assets/Stages/Rockets.unity
+    guid: e0af93cbac3099d4992230ea82d64d6f
+  - enabled: 1
+    path: Assets/Stages/SceneStage.unity
+    guid: 7977fe14a17fb7a429ddcdf61f36e70e
+  - enabled: 1
+    path: Assets/Stages/New Stage.unity
+    guid: 593c1519faec48a4db498fc473d3d6e1
+  - enabled: 1
+    path: Assets/Stages/userIstage.unity
+    guid: 3ab4aa1d1dbd17c4682c19f3c4f3a8db
+  - enabled: 1
+    path: Assets/Stages/TextStage.unity
+    guid: 48c3148ca1bb69543abfa89ad1185a89
   m_configObjects: {}

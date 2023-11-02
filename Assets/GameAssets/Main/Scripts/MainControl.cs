@@ -111,7 +111,7 @@ namespace GameAssets.Main.Scripts
         {
             while (gameObject.activeSelf)
             {
-                float randomNumber = Random.Range(1.5f, 3f);
+                float randomNumber = Random.Range(1.4f, 3.1f);
                 int sideIndex = Random.Range(0, 2);
                 RocketAmmo ammo = _ammoPool.Get().GetComponent<RocketAmmo>();
                 Vector2 rightPos = _ammoRightPositions[Random.Range(0, _ammoRightPositions.Length)];
@@ -137,7 +137,7 @@ namespace GameAssets.Main.Scripts
         {
             while (gameObject.activeSelf)
             {
-                float randomNumber = Random.Range(1.5f, 4f);
+                float randomNumber = Random.Range(1.9f, 4f);
                 int sideIndex = Random.Range(0, 2);
                 RocketEnemy enemy = _enemyPool.Get().GetComponent<RocketEnemy>();
                 Vector2 rightPos = _enemyRightPositions[Random.Range(0, _enemyRightPositions.Length)];

@@ -9,19 +9,25 @@ namespace GameAssets.Gui.Scripts.OrientationManager
         private void Awake()
         {
             if (_game)
-            {
-                Screen.orientation = ScreenOrientation.LandscapeLeft;
-                Screen.orientation = ScreenOrientation.AutoRotation;
-                Screen.autorotateToPortrait = Screen.autorotateToPortraitUpsideDown = false;
-                Screen.autorotateToLandscapeLeft = Screen.autorotateToLandscapeRight = true;
-            }
+                GameO();
             else
-            {
-                Screen.orientation = ScreenOrientation.Portrait;
-                Screen.orientation = ScreenOrientation.AutoRotation;
-                Screen.autorotateToPortrait = Screen.autorotateToPortraitUpsideDown = true;
-                Screen.autorotateToLandscapeLeft = Screen.autorotateToLandscapeRight = false;
-            }
+                StartO();
+        }
+
+        private void StartO()
+        {
+            Screen.orientation = ScreenOrientation.Portrait;
+            Screen.orientation = ScreenOrientation.AutoRotation;
+            Screen.autorotateToPortrait = Screen.autorotateToPortraitUpsideDown = true;
+            Screen.autorotateToLandscapeLeft = Screen.autorotateToLandscapeRight = false;
+        }
+
+        private void GameO()
+        {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+            Screen.orientation = ScreenOrientation.AutoRotation;
+            Screen.autorotateToPortrait = Screen.autorotateToPortraitUpsideDown = false;
+            Screen.autorotateToLandscapeLeft = Screen.autorotateToLandscapeRight = true;
         }
     }
 }

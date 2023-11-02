@@ -102,7 +102,7 @@ namespace GameAssets.Player.Scripts
 
         private IEnumerator MoveToShootPoint()
         {
-            while (Vector2.Distance(_shootPointRigidbody2D.position, transform.position) >= 0.065)
+            while (Vector2.Distance(_shootPointRigidbody2D.position, transform.position) >= 0.07f)
             {
                 _missileRigidbody2D.velocity = (_shootPointRigidbody2D.position - (Vector2)transform.position).normalized * AppearingSpeed;
                 yield return null;
